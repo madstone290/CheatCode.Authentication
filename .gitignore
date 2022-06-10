@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# 보안 파일
+[Ss]ecrets/
+[Ss]ecreFiles/
+
 # User-specific files
 *.rsuser
 *.suo
