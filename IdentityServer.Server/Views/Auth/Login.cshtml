@@ -7,8 +7,7 @@
     @foreach (var provider in Model.ExternalProviders ?? new AuthenticationScheme[] { })
     {
           <button name="provider" type="submit" value="@provider.Name">@provider.Name</button>
-
-      }
+    }
 </form>
 
 <form asp-controller="Auth" asp-action="Login" method="post">

@@ -109,8 +109,9 @@ using(var scope = app.Services.CreateScope())
     var user = await userManager.FindByNameAsync("bob");
     if(user == null)
     {
-        user = new ApplicationUser("bob") 
+        user = new ApplicationUser() 
         {
+            UserName ="dfde@err.com",
             DisplayUserName = "I am bob", 
             Deleted = true 
         };

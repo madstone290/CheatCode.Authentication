@@ -23,6 +23,16 @@ namespace IdentityServer.MvcClient.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Login([FromQuery] string returnUri)
+        {
+            var authProps = new AuthenticationProperties()
+            {
+                RedirectUri = returnUri
+            };
+            return Challenge(authProps, SharedValues.IdentityServer.OpenIdConnect);
+        }
+
         public IActionResult Logout()
         {
             // 모든 인증스킴에 대해 로그아웃
