@@ -34,11 +34,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4A.Server", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4A.WebApi", "Authentication\IdentityServer4A.WebApi\IdentityServer4A.WebApi.csproj", "{8FCFB260-7E97-44A5-A2E8-EB27F45F6EA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4A.Shared", "Authentication\IdentityServer4A.Shared\IdentityServer4A.Shared.csproj", "{B6ACA320-EFC6-4C75-836E-BC381CF36BA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4A.Shared", "Authentication\IdentityServer4A.Shared\IdentityServer4A.Shared.csproj", "{B6ACA320-EFC6-4C75-836E-BC381CF36BA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4B.Shared", "Authentication\IdentityServer4B.Shared\IdentityServer4B.Shared.csproj", "{0B5796AD-8A6E-409B-A6CF-9D97328B31CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4B.Shared", "Authentication\IdentityServer4B.Shared\IdentityServer4B.Shared.csproj", "{0B5796AD-8A6E-409B-A6CF-9D97328B31CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.Shared", "Authentication\OAuth.Shared\OAuth.Shared.csproj", "{D0331E7E-BA28-4581-9F84-33742AD44EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAuth.Shared", "Authentication\OAuth.Shared\OAuth.Shared.csproj", "{D0331E7E-BA28-4581-9F84-33742AD44EF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cqrs", "Cqrs", "{7CA2FD0A-D9CB-413D-AF52-98BEEAA1FF59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cqrs.Api", "Cqrs\Cqrs.Api\Cqrs.Api.csproj", "{331D8F2B-622F-4781-AB56-7FF836562C2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cqrs.Application", "Cqrs\Cqrs.Application\Cqrs.Application.csproj", "{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +104,14 @@ Global
 		{D0331E7E-BA28-4581-9F84-33742AD44EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0331E7E-BA28-4581-9F84-33742AD44EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0331E7E-BA28-4581-9F84-33742AD44EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{331D8F2B-622F-4781-AB56-7FF836562C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331D8F2B-622F-4781-AB56-7FF836562C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331D8F2B-622F-4781-AB56-7FF836562C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331D8F2B-622F-4781-AB56-7FF836562C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +133,8 @@ Global
 		{B6ACA320-EFC6-4C75-836E-BC381CF36BA5} = {739D3E5B-A3B3-4F41-8DF7-388E5EACF6D7}
 		{0B5796AD-8A6E-409B-A6CF-9D97328B31CE} = {7227BF57-A352-44B6-A600-4B69CC560E3C}
 		{D0331E7E-BA28-4581-9F84-33742AD44EF4} = {744F2720-2D1C-41D9-ADF1-1177E5D699AB}
+		{331D8F2B-622F-4781-AB56-7FF836562C2E} = {7CA2FD0A-D9CB-413D-AF52-98BEEAA1FF59}
+		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE} = {7CA2FD0A-D9CB-413D-AF52-98BEEAA1FF59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C01E572-D4FB-48E6-B2C2-E8822153D4AC}
