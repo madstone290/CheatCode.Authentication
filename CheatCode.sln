@@ -46,6 +46,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cqrs.Api", "Cqrs\Cqrs.Api\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cqrs.Application", "Cqrs\Cqrs.Application\Cqrs.Application.csproj", "{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{21648F92-2DF4-44C3-B7B5-9F17C19FC1C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Api", "Logging\Logging.Api\Logging.Api.csproj", "{CA87A479-01EB-4001-AE1F-9F020286F864}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,6 +116,10 @@ Global
 		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA87A479-01EB-4001-AE1F-9F020286F864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA87A479-01EB-4001-AE1F-9F020286F864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA87A479-01EB-4001-AE1F-9F020286F864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA87A479-01EB-4001-AE1F-9F020286F864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +143,7 @@ Global
 		{D0331E7E-BA28-4581-9F84-33742AD44EF4} = {744F2720-2D1C-41D9-ADF1-1177E5D699AB}
 		{331D8F2B-622F-4781-AB56-7FF836562C2E} = {7CA2FD0A-D9CB-413D-AF52-98BEEAA1FF59}
 		{3E645C5D-EBBA-4CF5-99CB-DA07DB1290CE} = {7CA2FD0A-D9CB-413D-AF52-98BEEAA1FF59}
+		{CA87A479-01EB-4001-AE1F-9F020286F864} = {21648F92-2DF4-44C3-B7B5-9F17C19FC1C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C01E572-D4FB-48E6-B2C2-E8822153D4AC}
