@@ -6,6 +6,7 @@
         public const string ApiOneAddress = "https://localhost:6003";
         public const string ApiTwoAddress = "https://localhost:7003";
         public const string MvcClientAddress = "https://localhost:8003";
+        public const string BlazorClientAddress = "https://localhost:9003";
 
         public const string ServerName = "Server";
         public const string ApiOneName = "Api1";
@@ -25,6 +26,10 @@
 
         public const string Client_2_Id = "client_id_mvc";
         public const string Client_2_Secret = "client_secret_mvc";
+
+
+        public const string Client_3_Id = "client_id_blazor";
+        public const string Client_3_Secret = "client_secret_blazor";
 
         public const string Scope_OfflineAccess = "offline_access";
         public const string Scope_OpenId = "openid";

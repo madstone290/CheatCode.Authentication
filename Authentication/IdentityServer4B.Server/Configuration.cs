@@ -103,30 +103,46 @@ namespace IdentityServer4B.Server
 
                 RequireConsent = false,
             },
-            // new Client 
-            // {
-            //    ClientId = "client_id_js",
+               new Client
+            {
+                ClientId =  Constants.Client_3_Id,
+                ClientSecrets = { new Secret(Constants.Client_3_Secret.ToSha256()) },
 
-            //    AllowedGrantTypes = GrantTypes.Code,
-            //    RequirePkce = true,
-            //    RequireClientSecret = false,
+                // AuthorizationCode -> Token 프로세스
+                AllowedGrantTypes = GrantTypes.Code,
+                RequirePkce = true,
 
-            //    RedirectUris = { "https://localhost:44345/home/signin" },
-            //    PostLogoutRedirectUris = { "https://localhost:44345/Home/Index" },
-            //    AllowedCorsOrigins = { "https://localhost:44345" },
+                // "/signin-oidc: openidconnect 미들웨어의 기본 리디렉트 주소
+                RedirectUris = {  Constants.BlazorClientAddress + "/signin-oidc" },
 
-            //    AllowedScopes = {
-            //        IdentityServerConstants.StandardScopes.OpenId,
-            //        "ApiOne",
-            //        "ApiTwo",
-            //        "rc.scope",
-            //    },
+                //# 외부에서 로그아웃되었을 때 클라이언트 로그아웃을 실행할 경로 설정
+                //# OpenIdConnectHandler는 Front Channel이다?
+                //BackChannelLogoutUri = SharedValues.MvcClientAddress + "/signout-oidc",
+                FrontChannelLogoutUri = Constants.BlazorClientAddress + "/signout-oidc",
 
-            //    AccessTokenLifetime = 1,
+                //# /signout-callback-oidc : OpenIdConnectHandler 경로. 로그아웃 콜백을 실행한다.
+                PostLogoutRedirectUris =  { Constants.BlazorClientAddress + "/signout-callback-oidc" },
+                //PostLogoutRedirectUris = { Constants.MvcClientAddress + "/Home/Index" },
 
-            //    AllowAccessTokensViaBrowser = true,
-            //    RequireConsent = false,
-            //},
+
+
+                AllowedScopes = {
+
+                    Constants.Scope_OpenId,
+                    Constants.Scope_Profile,
+                    Constants.Scope_ApiOne,
+                    Constants.Scope_ApiTwo,
+                    Constants.Scope_CustomClaim,
+                },
+
+                // user identity에 존재하는 claim을 id_token에 포함시킨다.
+                //AlwaysIncludeUserClaimsInIdToken = true,
+                
+                // refresh_token을 요청할 수 있도록 한다.
+                AllowOfflineAccess = true,
+
+                RequireConsent = false,
+            },
 
             //new Client
             //{
