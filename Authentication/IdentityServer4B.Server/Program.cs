@@ -23,7 +23,7 @@ builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 4;
+    options.Password.RequiredLength = 1;
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
@@ -111,12 +111,12 @@ using(var scope = app.Services.CreateScope())
     {
         user = new ApplicationUser() 
         {
-            UserName ="dfde@err.com",
+            UserName ="bob",
             DisplayUserName = "I am bob", 
             Deleted = true 
         };
 
-        userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+        var result = userManager.CreateAsync(user, "bob").GetAwaiter().GetResult();
 
         userManager.AddClaimAsync(user, new System.Security.Claims.Claim(Constants.Claim_Grandma, "big.cookie"))
             .GetAwaiter().GetResult();
