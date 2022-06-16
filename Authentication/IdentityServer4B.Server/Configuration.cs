@@ -98,6 +98,7 @@ namespace IdentityServer4B.Server
                 // user identity에 존재하는 claim을 id_token에 포함시킨다.
                 //AlwaysIncludeUserClaimsInIdToken = true,
                 
+                // refresh_token을 요청할 수 있도록 한다.
                 AllowOfflineAccess = true,
 
                 RequireConsent = false,

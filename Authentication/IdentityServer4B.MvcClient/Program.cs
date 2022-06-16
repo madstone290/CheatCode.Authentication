@@ -41,6 +41,7 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Add(Constants.Scope_ApiOne);
         options.Scope.Add(Constants.Scope_ApiTwo);
         options.Scope.Add(Constants.Scope_CustomClaim);
+        // refresh_token을 요청한다.
         options.Scope.Add(Constants.Scope_OfflineAccess);
 
 
