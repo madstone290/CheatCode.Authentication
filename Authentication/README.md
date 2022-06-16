@@ -4,6 +4,9 @@
 ## Basic
 - AuthenticationHandler와 AuthorizationHandler는 개별적으로 호출된다.
     - Authentication이 실패하더라도 Authorization 핸들링이 진행되며 이때 권한을 부여해서 인증을 통과할 수도 있다.
+- Ajax를 이용해서 쿠키를 설정할 때 
+	- Access-Control-Allow-Origin가 * 이면 안된다. 특정 Origin을 지정해야 한다.
+	- Access-Control-Allow-Credentials를 true로 설정해야 한다.
 
 ## IdentityServer
 - ApiScope와 ApiResource는 개별로 등록되어야 한다.
