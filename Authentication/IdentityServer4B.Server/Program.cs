@@ -14,6 +14,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("LocalDb");
 
+builder.Services.AddCors(options =>
+{
+options.AddPolicy("all",config =>
+{
+
+    config.WithOrigins(Constants.BlazorClientAddress) //.WithOrigins()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials();
+});
+
+});
+
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
@@ -193,6 +206,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("all");
+
 
 app.UseIdentityServer();
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Transactions;
+using Microsoft.AspNetCore.Cors;
 
 namespace IdentityServer4B.Server.Controllers
 {
@@ -40,14 +41,17 @@ namespace IdentityServer4B.Server.Controllers
             return View(model: vm);
         }
 
+   
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel vm)
+        public async Task<IActionResult> Login([FromForm] LoginViewModel vm)
         {
             // 모델 유효성 검사
             var result = await _signInManager.PasswordSignInAsync(vm.UserName, vm.Password, false, false);
 
             if (result.Succeeded)
             {
+                if (string.IsNullOrWhiteSpace(vm.ReturnUrl))
+                    return Redirect("/");
                 return Redirect(vm.ReturnUrl);
             }
             else if(result.IsLockedOut)
@@ -55,6 +59,20 @@ namespace IdentityServer4B.Server.Controllers
 
             }
             return View(model: vm);
+        }
+
+        [EnableCors("all")]
+        [HttpPost]
+        public async Task<IActionResult> LoginJson([FromBody] LoginViewModel vm)
+        {
+            // 모델 유효성 검사
+            var result = await _signInManager.PasswordSignInAsync(vm.UserName, vm.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
 
         [HttpGet]

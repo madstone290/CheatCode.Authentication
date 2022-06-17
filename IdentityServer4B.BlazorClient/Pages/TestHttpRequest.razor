@@ -1,0 +1,81 @@
+﻿@page "/TestHttpRequest"
+@using IdentityServer4B.Shared
+@using Microsoft.AspNetCore.Cors
+
+
+
+<button @onclick="RequestBtn_Click">Simple Request</button>
+<button @onclick="btnLogin_Click">Login</button>
+<button @onclick="btnLogout_Click">Logout</button>
+
+<button @onclick="HttpClient_Click">LoginWithHttpClient</button>
+<div>
+<button @onclick="RefreshCookie_Click">Refresh cookie</button>
+</div>
+
+
+<AuthorizeView>
+    <h3>Hello World @(context.User.Identity.Name)</h3>
+</AuthorizeView>
+
+
+<p>Text: @Text</p>
+<p>Cookie: @Cookie</p>
+@code {
+
+    public string? Text{ get; set; }
+    public string? Cookie{ get; set; }
+    [Inject]
+    IHttpContextAccessor HttpContextAccessor{ get; set; }
+
+    [Inject] IJSRuntime JSRunTime{ get; set; }
+
+    private async void btnLogin_Click()
+    {
+        var authModule = await JSRunTime.InvokeAsync<IJSObjectReference>("import", "./js/auth.js");
+        await authModule.InvokeVoidAsync("SignIn", "bob", "bob");
+    }
+
+    private async void btnLogout_Click()
+    {
+        var authModule = await JSRunTime.InvokeAsync<IJSObjectReference>("import", "./js/auth.js");
+        await authModule.InvokeVoidAsync("SignOut", "/");
+    }
+
+    private async void RequestBtn_Click()
+    {
+        HttpClient httpClient = new HttpClient();
+        var result  = await httpClient.GetAsync(Constants.ApiOneAddress + "/Users");
+        Text = await result.Content.ReadAsStringAsync();
+    }
+
+    private async void HttpClient_Click()
+    {
+        var url = "https://localhost:5003/auth/login";
+        HttpClient httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false });
+
+        var request = new HttpRequestMessage(HttpMethod.Post, url);
+        var dict = new Dictionary<string, string>();
+        dict.Add("UserName", "bob");
+        dict.Add("Password", "bob");
+        request.Content = new FormUrlEncodedContent(dict);
+        var result = await httpClient.SendAsync(request);
+        Text = await result.Content.ReadAsStringAsync();
+
+        result.Headers.TryGetValues("Set-Cookie", out IEnumerable<string> cookieValues);
+        var authCookie = cookieValues.FirstOrDefault(x => x.StartsWith("IdentityServer.Server.Cookie"));
+
+        // **HttpOnly 쿠키는 자바스크립트에서 설정할 수 없다**
+        var authModule = await JSRunTime.InvokeAsync<IJSObjectReference>("import", "./js/auth.js");
+        await authModule.InvokeVoidAsync("addCookie", authCookie);
+
+    }
+    private async void RefreshCookie_Click()
+    {
+        var authModule = await JSRunTime.InvokeAsync<IJSObjectReference>("import", "./js/auth.js");
+        Cookie = await authModule.InvokeAsync<string>("readCookie");
+
+
+    }
+    
+}
