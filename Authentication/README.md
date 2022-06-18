@@ -8,6 +8,7 @@
 	- XMLHttpRequest객체의 withCredentials=true로 설정해야 한다.
 	- Access-Control-Allow-Origin가 * 이면 안된다. 특정 Origin을 지정해야 한다.
 	- 클라이언트: withCredentials=true, 서버: Access-Control-Allow-Credentials=true로 설정해야 한다.
+- ClaimsIdentity.IsAuthenticated속성은 Identity 생성시 authenticationType을 지정해야 true로 설정된다.
 
 ## IdentityServer
 - ApiScope와 ApiResource는 개별로 등록되어야 한다.
