@@ -1,0 +1,93 @@
+﻿@page "/forms/editformsupport"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using System.ComponentModel
+
+<EditForm @ref="@form" Model="@Input" OnValidSubmit="@OnValidSubmit" >
+    <DataAnnotationsValidator @ref="@validator" />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudPaper Class="pa-4">
+                <MudTextField @bind-Value="@Input.Username" Label="사용자" For="@(() => Input.Username)" />
+                <MudTextField Label="Email" Class="mt-3"
+                              @bind-Value="Input.Email" For="@(() => Input.Email)" />
+                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="Input.Password" For="@(() => Input.Password)" InputType="InputType.Password" />
+                <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
+                              @bind-Value="Input.Password2" For="@(() => Input.Password2)" InputType="InputType.Password" />
+                <div class="d-flex">
+                    <MudRadioGroup T="string" Required="true" RequiredError="Account type is required!">
+                        <MudRadio Option="@("Personal")">Personal</MudRadio>
+                        <MudRadio Option="@("Professional")">Professional</MudRadio>
+                    </MudRadioGroup>
+                </div>
+            </MudPaper>
+            <MudPaper Class="pa-4 mt-4">
+
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@TestClick">Test</MudButton>
+
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="5">
+            <MudPaper Class="pa-4 mud-height-full">
+                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                @if (success)
+                {
+                    <MudText Color="Color.Success">Success</MudText>
+                }
+                else
+                {
+                    <MudText Color="@Color.Error">
+                        <ValidationSummary />
+                    </MudText>
+                }
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+</EditForm>
+
+
+@code {
+    private EditForm form;
+
+    DataAnnotationsValidator validator;
+    bool success;
+    public class InputModel
+    {
+        [Required]
+        [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
+        public string Username { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
+        public string Password { get; set; }
+
+        [Required]
+        [Compare(nameof(Password))]
+        public string Password2 { get; set; }
+
+    }
+
+    public InputModel Input { get; set; } = new InputModel();
+
+    void OnValidSubmit()
+    {
+        success = true;
+
+    }
+
+    void TestClick()
+    {
+        Input = new InputModel()
+            {
+                Email = Input.Email
+            };
+    }
+}
