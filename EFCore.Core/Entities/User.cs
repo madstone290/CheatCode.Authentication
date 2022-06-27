@@ -10,6 +10,10 @@ namespace EFCore.Core.Entities
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public int Age { get; set; }
+        public string Grade { get; set; }
+        public string Color { get; set; }
+       
 
         public User(string name)
         {

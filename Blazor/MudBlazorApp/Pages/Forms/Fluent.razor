@@ -6,7 +6,7 @@
 	<MudForm Model="@model" @ref="@form" Validation="@(orderValidator.ValidateValue)" ValidationDelay="0">
 		<MudCardContent>
 				<MudTextField @bind-Value="model.Name"                              
-							  For="@(() => model.Name)"
+                              For="@(() => model.Name)"
 							  Immediate="false"
 							  Label="Name" 
                               />
