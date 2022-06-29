@@ -15,5 +15,31 @@ namespace EFCore.Core.Data
         }
 
         public DbSet<User> Users { get; set; } = null!;
+
+        public IList<string> Watcher { get; set; } = new List<string>();
+
+        public override int SaveChanges()
+        {
+            Watcher.Add("SaveChanges()");
+            return base.SaveChanges();
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            Watcher.Add("SaveChanges(bool acceptAllChangesOnSuccess)");
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            Watcher.Add("SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)");
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            Watcher.Add("SaveChangesAsync(CancellationToken cancellationToken = default)");
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }
