@@ -1,0 +1,70 @@
+﻿@page "/Grid/Spacing"
+
+<MudSlider @bind-Value="spacing" Min="0" Max="10" Color="Color.Info" Class="mb-6">Spacing: @spacing.ToString()</MudSlider>
+
+<MudText>Justify.Center</MudText>
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px" />
+    </MudItem>
+</MudGrid>
+
+<MudText>Justify.FlexEnd</MudText>
+<MudGrid Spacing="@spacing" Justify="Justify.FlexEnd">
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px" />
+    </MudItem>
+</MudGrid>
+
+<MudText>Justify.FlexStart</MudText>
+<MudGrid Spacing="@spacing" Justify="Justify.FlexStart">
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px" />
+    </MudItem>
+</MudGrid>
+
+<MudText>Justify.SpaceAround</MudText>
+<MudGrid Spacing="@spacing" Justify="Justify.SpaceAround">
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px" />
+    </MudItem>
+</MudGrid>
+
+<MudText>Justify.SpaceBetween</MudText>
+<MudGrid Spacing="@spacing" Justify="Justify.SpaceBetween">
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px" />
+    </MudItem>
+</MudGrid>
+
+<MudText>Justify.SpaceEvenly</MudText>
+<MudGrid Spacing="@spacing" Justify="Justify.SpaceEvenly">
+    <MudItem>
+        <MudPaper Height="140px" Width="140px"/>
+    </MudItem>
+    <MudItem>
+        <MudPaper Height="140px" Width="140px" />
+    </MudItem>
+</MudGrid>
+
+@code {
+    public int spacing { get; set; } = 2;
+}
