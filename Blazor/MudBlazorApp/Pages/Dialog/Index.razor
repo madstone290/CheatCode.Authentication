@@ -1,0 +1,12 @@
+﻿@page "/Dialog"
+
+<MudButton OnClick="AddDialogClick" >Add Dialog</MudButton>
+@code {
+
+    [Inject] IDialogService DialogService{ get; set; }
+
+    void AddDialogClick()
+    {
+        DialogService.Show<AddDialog>("추가하실래요?");
+    }
+}
