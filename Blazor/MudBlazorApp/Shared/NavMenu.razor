@@ -1,10 +1,9 @@
 ﻿<MudNavMenu>
-    @*<MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>*@
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
-
     <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
-    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Servers</MudNavLink>
+    <MudNavLink Href="/Server" Match="NavLinkMatch.Prefix">Servers</MudNavLink>
+    <MudNavGroup Title="Table" Expanded="true">
+        <MudNavLink Href="/Table" Match="NavLinkMatch.Prefix">TableHome</MudNavLink>
+    </MudNavGroup>
     <MudNavGroup Title="Grid" Expanded="true">
         <MudNavLink Href="/Grid/Spacing" Match="NavLinkMatch.Prefix">Spacing</MudNavLink>
         <MudNavLink Href="/Grid/Position" Match="NavLinkMatch.Prefix">Position</MudNavLink>

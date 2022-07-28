@@ -1,0 +1,42 @@
+﻿@typeparam T
+
+<style>
+    /* 인풋 컨테이너가 꽉 차도록 설정 */
+    .aid-input.aid-input-full {
+        width: 100%;
+    }
+</style>
+<td class="mud-table-cell">
+    <MudInput Class="aid-input aid-input-fullwidth"
+              T="T"
+              Immediate="false"
+              DisableUnderLine="true"
+              InputType="InputType.Text"
+              @bind-Value="@Value"></MudInput>
+    <MudText Color="Color.Error">@_error</MudText>
+</td>
+
+
+@code {
+    private T? _value;
+    private string? _error;
+
+    [Parameter]
+    public T? Value
+    {
+        get => _value;
+        set
+        {
+            if (EqualityComparer<T>.Default.Equals(_value, value))
+                return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+
+            _error = Validate?.Invoke(value);
+        }
+    }
+
+    [Parameter] public EventCallback<T?> ValueChanged { get; set; }
+    [Parameter] public Func<T?, string>? Validate { get; set; }
+
+}

@@ -1,0 +1,126 @@
+﻿@page "/Table";
+
+@using System.Linq.Expressions
+@using FluentValidation
+
+<MudTable FixedFooter="true"
+          FixedHeader="true"
+          Height="60vh"
+          Dense="true"
+          Bordered="true"
+          T="Item"
+          Items="ItemList">
+
+    <HeaderContent>
+        <MudTh Style="min-width:100px;">Name</MudTh>
+        <MudTh Style="min-width:100px;">Number</MudTh>
+        <MudTh Style="min-width:100px;">Price</MudTh>
+        <MudTh Style="min-width:100px;">Salary</MudTh>
+        <MudTh Style="min-width:100px;">Address</MudTh>
+        <MudTh Style="min-width:100px;">Phone</MudTh>
+        <MudTh Style="min-width:100px;">Memo</MudTh>
+        <MudTh Style="min-width:100px;">Note</MudTh>
+        <MudTh Style="min-width:100px;">Car</MudTh>
+        <MudTh Style="min-width:100px;">Board</MudTh>
+        <MudTh Style="min-width:100px;">Pen</MudTh>
+        <MudTh Style="min-width:100px;">Cup</MudTh>
+        <MudTh Style="min-width:100px;">Rope</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <EditCell @bind-Value="context.Name" Validate="@((_) => Validate(context, x=> x.Name))" />
+        <EditCell @bind-Value="context.Number" Validate="@((_) => Validate(context, x=> x.Number))" />
+        <EditCell @bind-Value="context.Price" Validate="@((_) => Validate(context, x=> x.Name))" />
+        <EditCell @bind-Value="context.Salary" />
+        <EditCell @bind-Value="context.Address" />
+        <EditCell @bind-Value="context.Phone" />
+        <EditCell @bind-Value="context.Memo" />
+        <EditCell @bind-Value="context.Note" />
+        <EditCell @bind-Value="context.Car" />
+        <EditCell @bind-Value="context.Board" />
+        <EditCell @bind-Value="context.Pen" />
+        <EditCell @bind-Value="context.Cup" />
+        <EditCell @bind-Value="context.Rope" />
+    </RowTemplate>
+    <FooterContent>
+        <MudTd colspan="100">
+            <MudButton FullWidth="true" OnClick="NewRow_Click">New Row</MudButton>
+        </MudTd>
+    </FooterContent>
+</MudTable>
+
+
+@code {
+    public class Item
+    {
+        public string? Name { get; set; }
+        public string? Number { get; set; }
+        public double Price { get; set; }
+        public double Salary { get; set; }
+        public string? Address { get; set; }
+        public string? Phone { get; set; }
+        public string? Memo { get; set; }
+        public string? Note { get; set; }
+        public string? Car { get; set; }
+        public string? Board { get; set; }
+        public string? Pen { get; set; }
+        public string? Cup { get; set; }
+        public string? Rope { get; set; }
+    }
+    public class ItemValidator : AbstractValidator<Item>
+    {
+        public ItemValidator()
+        {
+            RuleFor(x => x.Name)
+                .NotEmpty()
+                .WithMessage("이름이 비었습니다");
+            RuleFor(x => x.Number)
+                .NotEmpty().WithMessage("번호가 비었습니다")
+                .MinimumLength(3).WithMessage("번호는 3자 이상이어야 합니다");
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0)
+                .WithMessage("가격은 음수일 수 없습니다");
+        }
+    }
+
+    public ItemValidator Validator { get; set; } = new ItemValidator();
+    public List<Item> ItemList = new List<Item>()
+    {
+        new Item() { Name = "Item1", Number = "123", Price = 1000 },
+        new Item() { Name = "Item2", Number = "123", Price = 1000 },
+        new Item() { Name = "", Number = "3", Price = -1 },
+        new Item() { Name = "Item4", Number = "", Price = 1000 }
+    };
+
+    [Inject] public IJSRuntime JSRuntime { get; set; } = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("UseTableResize", "mud-table-root");
+        }
+    }
+
+    private void NewRow_Click()
+    {
+        ItemList.Add(new Item());
+    }
+
+    private string Validate(Item item, Expression<Func<Item, object?>> expression)
+    {
+        string property = "";
+        if (expression.Body is MemberExpression m)
+            property = m.Member.Name;
+        else if (expression.Body is UnaryExpression u && u.Operand is MemberExpression mm)
+            property = mm.Member.Name;
+        var value = expression.Compile().Invoke(item);
+
+        var context = ValidationContext<Item>.CreateWithOptions(item, options => options.IncludeProperties(property));
+        var result = Validator.Validate(context);
+        if (result.IsValid)
+            return string.Empty;
+        return result.Errors.First().ErrorMessage;
+    }
+
+}
