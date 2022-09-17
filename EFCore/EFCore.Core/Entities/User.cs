@@ -13,7 +13,8 @@ namespace EFCore.Core.Entities
         public int Age { get; set; }
         public string Grade { get; set; }
         public string Color { get; set; }
-       
+        public List<string> Tags { get; set; } = new();
+
 
         public User(string name)
         {

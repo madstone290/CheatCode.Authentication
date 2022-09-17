@@ -18,6 +18,13 @@ namespace EFCore.Core.Data
 
         public IList<string> Watcher { get; set; } = new List<string>();
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserDbContext).Assembly);
+        }
+
         public override int SaveChanges()
         {
             Watcher.Add("SaveChanges()");

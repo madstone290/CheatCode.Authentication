@@ -1,0 +1,87 @@
+﻿@page "/js/js5"
+@implements IObservable<ElementReference>
+@implements IDisposable
+
+<style>
+    .red { color: red }
+</style>
+
+<h1>Call JS Example 5</h1>
+
+<h2 @ref="title">Hello, world!</h2>
+
+Welcome to your new app.
+
+<MySurveyPrompt Parent="@this" Title="How is Blazor working for you?" />
+
+@code {
+    private bool disposing;
+    private IList<IObserver<ElementReference>> subscriptions =
+        new List<IObserver<ElementReference>>();
+    private ElementReference title;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        foreach (var subscription in subscriptions)
+        {
+            try
+            {
+                subscription.OnNext(title);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        disposing = true;
+
+        foreach (var subscription in subscriptions)
+        {
+            try
+            {
+                subscription.OnCompleted();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        subscriptions.Clear();
+    }
+
+    public IDisposable Subscribe(IObserver<ElementReference> observer)
+    {
+        if (disposing)
+        {
+            throw new InvalidOperationException("Parent being disposed");
+        }
+
+        subscriptions.Add(observer);
+
+        return new Subscription(observer, this);
+    }
+
+    private class Subscription : IDisposable
+    {
+        public Subscription(IObserver<ElementReference> observer,
+            CallJs5 self)
+        {
+            Observer = observer;
+            Self = self;
+        }
+
+        public IObserver<ElementReference> Observer { get; }
+        public CallJs5 Self { get; }
+
+        public void Dispose()
+        {
+            Self.subscriptions.Remove(Observer);
+        }
+    }
+}

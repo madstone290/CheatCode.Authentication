@@ -2,7 +2,7 @@ using EFCore.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Home\Sources\VisualStudio\managed\CheatCode\EFCore.Core\UserDb.mdf;Integrated Security=True";
+string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Home\Sources\VisualStudio\managed\CheatCode\EFCore\EFCore.Core\UserDb.mdf;Integrated Security=True";
 
 // 1. 시작프로젝트 선택
 // 2. PackageManageConsole에서 DefaultProject로 DbContext가 속한 프로젝트 선택

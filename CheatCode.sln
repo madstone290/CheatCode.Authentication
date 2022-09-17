@@ -64,6 +64,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore.Api", "EFCore\EFCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore.Core", "EFCore\EFCore.Core\EFCore.Core.csproj", "{B7A0B5D5-CB43-45C4-9F98-129F715D6CF3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Documents", "Blazor\Blazor.Documents\Blazor.Documents.csproj", "{A96B5231-8B41-4A38-BB4C-B17F81B8ABEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,6 +156,10 @@ Global
 		{B7A0B5D5-CB43-45C4-9F98-129F715D6CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7A0B5D5-CB43-45C4-9F98-129F715D6CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7A0B5D5-CB43-45C4-9F98-129F715D6CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96B5231-8B41-4A38-BB4C-B17F81B8ABEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96B5231-8B41-4A38-BB4C-B17F81B8ABEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96B5231-8B41-4A38-BB4C-B17F81B8ABEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96B5231-8B41-4A38-BB4C-B17F81B8ABEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +189,7 @@ Global
 		{89D96C40-0C29-4C70-B1EC-F713DFCC89F8} = {61CFA6B7-29DA-46A7-8964-7F2181A41D69}
 		{151690BC-55EB-40BB-92D0-23EC655FC7DC} = {5035E088-FF89-4A48-BADD-9F0F04BA9AB9}
 		{B7A0B5D5-CB43-45C4-9F98-129F715D6CF3} = {5035E088-FF89-4A48-BADD-9F0F04BA9AB9}
+		{A96B5231-8B41-4A38-BB4C-B17F81B8ABEA} = {61CFA6B7-29DA-46A7-8964-7F2181A41D69}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C01E572-D4FB-48E6-B2C2-E8822153D4AC}

@@ -1,0 +1,51 @@
+﻿@page "/js/dotnet3"
+@implements IDisposable
+@inject IJSRuntime JS
+
+<h1>Call .NET Example 3</h1>
+
+<p>
+    <button @onclick="TriggerDotNetInstanceMethod">
+        Create GUID
+    </button>
+</p>
+
+<p>
+    @result
+</p>
+
+@code {
+
+    public class NameService 
+    {
+        [JSInvokable("guid")]
+        public Guid NewGuid()
+        {
+            var guid = Guid.NewGuid();
+            Console.WriteLine(guid);
+            return guid;
+        }
+
+          [JSInvokable("guid")]
+        public Guid NewGuid2()
+        {
+            var guid = Guid.NewGuid();
+            Console.WriteLine(guid);
+            return guid;
+        }
+    }
+
+    private string? result;
+    private DotNetObjectReference<NameService>? nameServiceRef;
+
+    public async Task TriggerDotNetInstanceMethod()
+    {
+        nameServiceRef = DotNetObjectReference.Create(new NameService());
+        result = await JS.InvokeAsync<string>("createGuid", nameServiceRef);
+    }
+
+    public void Dispose()
+    {
+        nameServiceRef?.Dispose();
+    }
+}
