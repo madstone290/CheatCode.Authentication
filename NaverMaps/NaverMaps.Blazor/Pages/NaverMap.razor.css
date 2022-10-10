@@ -1,0 +1,15 @@
+﻿::deep .page{
+    width: 100vw;
+}
+
+::deep .toolbar{
+    height: 200px;
+}
+
+::deep .map-container{
+    width : 100%;
+}
+
+::deep .invisible{
+    visibility: hidden;
+}

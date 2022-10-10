@@ -1,0 +1,91 @@
+﻿@page "/navermap"
+
+@using NaverMaps.Blazor.Services
+
+<div class="page">
+    <div>
+        Address: @_address
+    </div>
+    <div>
+        Location: @_location
+    </div>
+    <div class="toolbar">
+        <button @onclick="ShowMap_Click">Show Map</button>
+        <button @onclick="Select_Click">Select</button>
+    </div>
+    <div class="map-container @_invisible">
+        <div id="map" style="width:1000px;height:500px;"></div>
+    </div>
+    <div>
+        This is tail
+    </div>
+</div>
+
+@code {
+
+    public class Point{
+        public double X{ get; set; }
+        public double Y { get; set; }
+
+    }
+    private const string JS_SRC = "/js/NaverMap.js";
+
+    private const string INVISIBLE = "invisible";
+
+    private string _invisible = INVISIBLE;
+
+    private string _location = "undefined";
+
+    private string _address = "undefined";
+
+    // api 모듈
+    private IJSObjectReference _module;
+
+    [Inject]
+    public IJSRuntime JS { get; set; } = null!;
+
+    DotNetObjectReference<NaverMapDotNetService>? naverObjRef;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var naverService = new NaverMapDotNetService();
+        naverService.AddressChanged = new EventCallback<string>(this, OnAddressChanged);
+        naverService.LocationChanged = new EventCallback<NaverMapDotNetService.Point>(this, OnLocationChanged);
+        naverObjRef = DotNetObjectReference.Create(naverService);
+
+        _module = await JS.InvokeAsync<IJSObjectReference>("import", JS_SRC);
+
+        await _module.InvokeVoidAsync("setDotNetRef", naverObjRef);
+
+        await _module.InvokeVoidAsync("init", "map");
+    }
+
+    private async Task ShowMap_Click()
+    {
+        _invisible = string.Empty;
+
+        //await _module.InvokeVoidAsync("openInfo");
+    }
+
+
+    private async Task Select_Click()
+    {
+        _invisible = INVISIBLE;
+        var center = await _module.InvokeAsync<Point>("getCenter");
+        _location = $"X:{center.X:0.000000} Y:{center.Y:0.000000}";
+    }
+
+
+    private void OnAddressChanged(string address)
+    {
+        _address = address;
+    }
+
+    private void OnLocationChanged(NaverMapDotNetService.Point point)
+    {
+        _location = $"X:{point.X:0.000000} Y:{point.Y:0.000000}";
+    }
+
+}
+
+
