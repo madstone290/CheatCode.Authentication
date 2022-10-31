@@ -16,6 +16,30 @@
     <script type="text/javascript" src="@naverJsSrc"></script>
 </head>
 <body>
+
+    <style>
+        .speech-bubble {
+            position: relative;
+            background: #00aabb;
+            border-radius: .4em;
+        }
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+            border-top-color: #00aabb;
+            border-bottom: 0;
+            margin-left: -12px;
+            margin-bottom: -12px;
+        }
+    </style>
+    
+    <button id="btn1">click</button>
+
     <div id="map" style="width:100%;height:800px;"></div>
 
     <script>
@@ -28,13 +52,76 @@
             }
         };
 
+        let selectedMarker;
 
         var map = new naver.maps.Map('map', mapOptions);
+
 
         var marker = new naver.maps.Marker({
             map: map,
             position: map.getCenter(),
+            icon: {
+                content: `
+                <div style="display:flex; flex-direction:row;">
+                    <img style="width:24px; height:24px;" src="/img/location-sign.png" />
+                    <div>철물점</div>
+                </div>`,
+                //size: new naver.maps.Size(22, 35),
+                origin: new naver.maps.Point(0, 0),
+                anchor: new naver.maps.Point(12, 24)
+            }
         });
+        marker.id = "marker1";
+        marker.tag = marker.icon;
+
+        var marker2 = new naver.maps.Marker({
+            map: map,
+            position: map.getCenter(),
+            icon: {
+                content: `
+                        <div style="display:flex; flex-direction:row;">
+                            <img style="width:24px; height:24px;" src="/img/location-sign.png" />
+                            <div>우리집</div>
+                        </div>`,
+                //size: new naver.maps.Size(22, 35),
+                origin: new naver.maps.Point(0, 0),
+                anchor: new naver.maps.Point(12, 24)
+            }
+        });
+        marker2.id = "marker2";
+        marker2.tag = marker2.icon;
+
+
+        document.getElementById("btn1").addEventListener('click', function (e) {
+            map.setCenter(marker.position);
+        });
+
+
+        var markerClickFunc = function(marker){
+            naver.maps.Event.addListener(marker, 'click', (e) => {
+                console.log(e);
+
+                console.log(marker.id);
+
+                if (selectedMarker){
+                    selectedMarker.setIcon(selectedMarker.tag);
+                }
+                
+                marker.setIcon({
+                    content: `<div style="display:flex; flex-direction:row;">
+                                                    <img style="width:24px; height:24px;" src="/img/location-sign.png" />
+                                                    <div>클릭</div>
+                                                </div>`,
+                    origin: new naver.maps.Point(0, 0),
+                    anchor: new naver.maps.Point(12, 24)
+                });
+                selectedMarker = marker;
+            });
+        };
+
+        markerClickFunc(marker);
+        markerClickFunc(marker2);
+
         var infoWindow = new naver.maps.InfoWindow({
             content: '<p>이 위치에서 검색</p>',
             disableAnchor: false,
@@ -42,7 +129,7 @@
             anchorSize: new naver.maps.Size(10, 10),
         });
 
-        infoWindow.open(map, marker);
+        //infoWindow.open(map, marker);
 
         naver.maps.Event.addListener(map, 'center_changed', function (center) {
             console.log(center);
@@ -69,13 +156,13 @@
 
                     // do Something
 
-                infoWindow.close();
+                //infoWindow.close();
                 
 
                 const content = '<p>이 위치에서 검색</p>';
                 //const content = '<p>이 위치에서 검색</p><p>' + e.latlng.y + ',' + e.latlng.x + '</p>';
-                infoWindow.setContent(content);
-                infoWindow.open(map, marker);
+                //infoWindow.setContent(content);
+                //infoWindow.open(map, marker);
                 });
                 
         });
